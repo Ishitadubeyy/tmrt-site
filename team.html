@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | TMRT</title>
+    <style>
+        /* ... (Copy ALL CSS from index.html <style> block here) ... */
+        /* Add specific styles from team.php if any are unique and not covered, otherwise the shared CSS is fine */
+        :root {
+            --primary: #023e8a;
+            --secondary: #0077b6;
+            --accent: #00b4d8;
+            --light: #caf0f8;
+            --dark: #03045e;
+            --gradient-1: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-2: linear-gradient(135deg, var(--secondary), var(--accent));
+            --gradient-3: linear-gradient(45deg, var(--accent), var(--light));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            padding-top: 80px; /* Adjust based on header height */
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after, nav a.active:after {
+            width: 100%;
+        }
+        nav a.active {
+            color: var(--accent);
+        }
+        
+        .login-button {
+            margin-left: 1rem;
+        }
+        
+        .btn-login {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-login:hover {
+            background-color: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section from team.php */
+        .team-hero {
+            background: var(--gradient-1);
+            color: white;
+            padding: 60px 1rem 80px; /* Adjusted top padding for fixed header */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M16 0v100h4V0h-4zm8 0v100h4V0h-4zm8 0v100h4V0h-4zm8 0v100h4V0h-4zm8 0v100h4V0h-4zm8 0v100h4V0h-4zm8 0v100h4V0h-4zm8 0v100h4V0h-4zm8 0v100h4V0h-4zm8 0v100h4V0h-4z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .team-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, white, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent; /* Fallback */
+        }
+
+        .team-hero p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Team Photo Section */
+        .team-photo-section {
+            padding: 5rem 1rem;
+            background: white;
+            position: relative;
+        }
+
+
+        .team-photo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+        }
+
+        .team-photo-frame {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 119, 182, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .team-photo-frame:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-photo-placeholder { /* This div will contain the img tag */
+            width: 100%;
+            /* height: 500px; Let image define height or set aspect ratio */
+            background: var(--gradient-3); /* Fallback if image fails */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 600;
+            /* border: 3px dashed var(--secondary); Removed border if actual image is used */
+            position: relative;
+        }
+        .team-photo-placeholder img {
+            width: 100%; /* Make image responsive within container */
+            height: auto;
+            max-height: 600px; /* Optional: constrain max height */
+            object-fit: cover; /* Ensures image covers the area, might crop */
+            border-radius: 8px; /* From original img style */
+        }
+
+
+        /* Leadership Section */
+        .leadership-section {
+            padding: 5rem 1rem;
+            background: linear-gradient(135deg, #f8f9fa, var(--light));
+        }
+
+        .leadership-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .leader-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 119, 182, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .leader-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-2);
+        }
+
+        .leader-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 119, 182, 0.2);
+        }
+
+        .leader-photo {
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+        .leader-photo img, .member-photo img { /* For actual images */
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .leader-photo-placeholder, .member-photo-placeholder { /* For placeholder text */
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+
+        .leader-info {
+            padding: 2rem;
+        }
+
+        .leader-name {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .leader-role {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .leader-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .leader-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--gradient-2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Team Members Section */
+        .team-members-section {
+            padding: 5rem 1rem;
+            background: white;
+        }
+
+        .team-members-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .department-section {
+            margin-bottom: 4rem;
+        }
+
+        .department-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .department-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 30px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+        }
+
+        .members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .member-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 119, 182, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 180, 216, 0.1);
+        }
+
+        .member-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 119, 182, 0.15);
+            border-color: var(--accent);
+        }
+
+        .member-photo {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .member-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .member-name {
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-position {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 0.8rem;
+        }
+
+        .member-year {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .member-contact {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .contact-link {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--gradient-2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem; /* For icons like mail, linkedin */
+        }
+
+        .contact-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 119, 182, 0.3);
+        }
+
+        /* Stats Section */
+        .team-stats {
+            background: var(--gradient-1);
+            color: white;
+            padding: 4rem 1rem;
+            position: relative;
+        }
+
+        .team-stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='8'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .team-stats .section-title { /* Make title white for this section */
+            color: white;
+        }
+        .team-stats .section-title::after { /* Make title underline accent color */
+             background: var(--accent);
+        }
+
+
+        .stats-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            margin-top: 0; /* Team stats section is the last content before footer */
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: -8px;
+            left: 0;
+        }
+        
+        .footer-col p, .footer-col address {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-style: normal;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-links-footer a {
+            color: white;
+            font-size: 1.5rem; 
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links-footer a:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 1.5rem 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design from team.php */
+        @media (max-width: 768px) {
+            .team-hero h1 { font-size: 2.5rem; }
+            .leadership-grid { grid-template-columns: 1fr; }
+            .members-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            
+            header { padding: 0.5rem; }
+            nav ul { gap: 1rem; flex-direction: column; text-align: center;}
+            .header-content {flex-direction: column;}
+            .nav-link {padding: 0.5rem;}
+        }
+
+        @media (max-width: 576px) {
+            .team-hero h1 { font-size: 2rem; }
+            .section-title { font-size: 2rem; }
+            .department-title { font-size: 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .logo h1 { font-size: 1.2rem; }
+            nav a { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="#023e8a" stroke="#00b4d8" stroke-width="2" />
+                    <path d="M30,50 Q50,20 70,50 T90,50" stroke="#00b4d8" stroke-width="4" fill="none" />
+                    <path d="M25,60 Q50,30 75,60" stroke="#00b4d8" stroke-width="4" fill="none" />
+                    <path d="M20,70 Q50,40 80,70" stroke="#00b4d8" stroke-width="4" fill="none" />
+                </svg>
+                <h1> The Marine Robotics Team</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="team.html" class="active">Team</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="login-button">
+                <a href="login_placeholder.html" class="btn-login">Log In</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="team-hero">
+        <div class="team-hero-content">
+            <h1>MEET OUR TEAM</h1>
+            <p>Passionate students, engineers, and innovators working together to push the boundaries of marine robotics and underwater exploration.</p>
+        </div>
+    </section>
+
+    <!-- Team Photo Section -->
+    <section class="team-photo-section">
+        <div class="team-photo-container">
+            <h2 class="section-title">TEAM PHOTO</h2>
+            <div class="team-photo-frame">
+                <div class="team-photo-placeholder">
+                    <img src="team.jpg" alt="Team Photo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section class="leadership-section">
+        <div class="leadership-container">
+            <h2 class="section-title">LEADERSHIP & COUNCIL</h2>
+            <div class="leadership-grid">
+                <div class="leader-card">
+                    <div class="leader-photo">
+                        <img src="ninad.jpg" alt="Dr. Ninad Mehendale">
+                    </div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Dr. Ninad Mehendale</h3>
+                        <div class="leader-role">Faculty In Charge</div>
+                        <p class="leader-description">Guiding the team with invaluable experience and academic insight, fostering an environment of innovation and excellence.</p>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <div class="leader-photo"><div class="leader-photo-placeholder">Photo</div></div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Dr. Jagannath Nirmal</h3>
+                        <div class="leader-role">Chairperson</div>
+                        <p class="leader-description">Overseeing the team's strategic direction and providing institutional support as HOD (EXCP).</p>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <div class="leader-photo">
+                        <img src="aab.jpg" alt="Aaboli Shinde">
+                    </div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Aaboli Shinde</h3>
+                        <div class="leader-role">Captain</div>
+                        <p class="leader-description">Leading the team's vision for the 2024-2025 council. (SY • CCE)</p>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <div class="leader-photo">
+                        <img src="aas.jpg" alt="Aastha Kataria">
+                    </div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">Aastha Kataria</h3>
+                        <div class="leader-role">Vice-Captain</div>
+                        <p class="leader-description">Supporting team operations and coordinating projects. (TY • IT)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Members Section -->
+    <section class="team-members-section">
+        <div class="team-members-container">
+            <h2 class="section-title">OUR TEAM MEMBERS (2024-2025)</h2>
+
+            <!-- Computer Engineering -->
+            <div class="department-section">
+                <h3 class="department-title">Computer Engineering (COMPS)</h3>
+                <div class="members-grid">
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Shravani Parte</h4>
+                            <p class="member-year">SY • COMPS</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Tisha Motani</h4>
+                            <p class="member-year">TY • COMPS</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Shriya Shetty</h4>
+                            <p class="member-year">SY • COMPS</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Prathamesh Jadhav</h4>
+                            <p class="member-year">FY • COMPS</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Vedant Rawte</h4>
+                            <p class="member-year">FY • COMPS</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Pradnya Jadhav</h4>
+                            <p class="member-year">SY • COMPS</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Shreeya Panchal</h4>
+                            <p class="member-year">SY • COMPS</p>
+                        </div>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Shlok Baraskar</h4>
+                            <p class="member-year">SY • COMPS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Technology -->
+             <div class="department-section">
+                <h3 class="department-title">Information Technology (IT)</h3>
+                <div class="members-grid">
+                     <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Snehal Ghagas</h4>
+                            <p class="member-year">SY • IT</p>
+                        </div>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Shweta Tiwari</h4>
+                            <p class="member-year">SY • IT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Computer & Communication Engineering -->
+            <div class="department-section">
+                <h3 class="department-title">Computer & Communication Engg. (CCE)</h3>
+                <div class="members-grid">
+                     <div class="member-card">
+                        <div class="member-photo">
+                            <img src="rama.jpg" alt="Ramanaya Karwa">
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">Ramanaya Karwa</h4>
+                            <p class="member-year">SY • CCE</p>
+                        </div>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-photo">
+                            <img src="kava.jpg" alt="Kavyanjali Kadam">
+                        </div>
+                        <div class="member-info">
+                            <h4 class="member-name">Kavyanjali Kadam</h4>
+                            <p class="member-year">SY • CCE</p>
+                        </div>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Soumyadeep Mukherjee</h4>
+                            <p class="member-year">FY • CCE</p>
+                        </div>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Dhruv Shirsat</h4>
+                            <p class="member-year">FY • CCE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Electronics & Computer Engineering -->
+            <div class="department-section">
+                <h3 class="department-title">Electronics & Computer Engg. (EXCP)</h3>
+                <div class="members-grid">
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Dinesh Bishokarma</h4>
+                            <p class="member-year">SY • EXCP</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Aayush Belekar</h4>
+                            <p class="member-year">SY • EXCP</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Sahana Iyer</h4>
+                            <p class="member-year">SY • EXCP</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Tanvi Minase</h4>
+                            <p class="member-year">SY • EXCP</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Samruddhi Shewale</h4>
+                            <p class="member-year">SY • EXCP</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Shrutika Tambe</h4>
+                            <p class="member-year">SY • EXCP</p>
+                        </div>
+                    </div>
+                     <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Aaryan Shastri</h4>
+                            <p class="member-year">SY • EXCP</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mechanical Engineering Department -->
+            <div class="department-section">
+                <h3 class="department-title">Mechanical Engineering (MECH)</h3>
+                <div class="members-grid">
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Ahan Mahapatra</h4>
+                            <p class="member-year">SY • MECH</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- AI & Data Science -->
+            <div class="department-section">
+                <h3 class="department-title">AI & Data Science (AIDS)</h3>
+                <div class="members-grid">
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Shreya Shetty</h4>
+                            <p class="member-year">FY • AIDS</p>
+                        </div>
+                    </div>
+                    <div class="member-card">
+                        <div class="member-photo"><div class="member-photo-placeholder">Photo</div></div>
+                        <div class="member-info">
+                            <h4 class="member-name">Jahnvee Sharma</h4>
+                            <p class="member-year">FY • AIDS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Team Stats -->
+    <section class="team-stats">
+        <div class="stats-container">
+            <h2 class="section-title">TEAM BY THE NUMBERS</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>25+</h3>
+                    <p>Active Members</p>
+                </div>
+                <div class="stat-item">
+                    <h3>6</h3>
+                    <p>Engineering Disciplines</p>
+                </div>
+                <div class="stat-item">
+                    <h3>6+</h3>
+                    <p>Years Experience</p>
+                </div>
+                <div class="stat-item">
+                    <h3>10+</h3>
+                    <p>Projects Completed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>About TMRT</h3>
+                <p>The Marine Robotics Team (TMRT) at K.J. Somaiya School of Engineering is dedicated to innovating in the field of autonomous underwater vehicles (AUVs) for exploration, research, and solving real-world marine challenges.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="contact.html#join-us">Join Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <address>
+                    K.J. Somaiya School of Engineering<br>
+                    Vidyanagar, Vidyavihar East,<br>
+                    Mumbai, Maharashtra 400077<br>
+                    Email: <a href="mailto:tmrt@somaiya.edu" style="color: var(--accent);">tmrt@somaiya.edu</a>
+                </address>
+                 <div class="social-links-footer">
+                    <a href="https://www.facebook.com/TMRTKJSCE/" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22.676 0H1.324C.593 0 0 .593 0 1.324v21.352C0 23.407.593 24 1.324 24h11.494v-9.294H9.692v-3.622h3.126V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.324V1.324C24 .593 23.407 0 22.676 0z"/></svg></a>
+                    <a href="https://x.com/thetmrt" target="_blank" aria-label="Twitter (X)"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25h6.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="https://www.instagram.com/tmrt_kjsce/" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.264.058 2.148.277 2.917.578.78.308 1.454.755 2.128 1.43s.973 1.348 1.43 2.128c.301.77.52 1.653.578 2.917.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.058 1.264-.277 2.148-.578 2.917-.308.78-.755 1.454-1.43 2.128s-1.348.973-2.128 1.43c-.77.301-1.653.52-2.917.578-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.264-.058-2.148-.277-2.917-.578-.78-.308-1.454-.755-2.128-1.43s-.973-1.348-1.43-2.128c-.301-.77-.52-1.653-.578-2.917-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.058-1.264.277-2.148.578-2.917.308.78.755 1.454 1.43-2.128s1.348-.973 2.128-1.43c.77-.301 1.653-.52 2.917-.578L7.15 2.233C8.416 2.175 8.796 2.163 12 2.163m0-1.627C8.69 0.536 8.273 0.549 7.014 0.61c-1.32.062-2.43.308-3.43.717-1.017.418-1.91.978-2.77 1.84s-1.423 1.753-1.84 2.77c-.41 1-.656 2.11-.717 3.43C0.549 10.273 0.536 10.69 0.536 14s.013 3.727.074 4.986c.061 1.32.308 2.43.717 3.43.418 1.017.978 1.91 1.84 2.77s1.753 1.423 2.77 1.84c1 .41 2.11.656 3.43.717 1.259.061 1.675.074 4.935.074s3.677-.013 4.935-.074c1.32-.061 2.43-.308 3.43-.717 1.017-.418 1.91-.978 2.77-1.84s1.423 1.753 1.84-2.77c.41-1 .656-2.11.717-3.43.061-1.259.074-1.675.074-4.935s-.013-3.677-.074-4.935c-.061-1.32-.308-2.43-.717-3.43-.418-1.017-.978-1.91-1.84-2.77s-1.753-1.423-2.77-1.84c-1-.41-2.11-.656-3.43-.717C15.727 0.549 15.31 0.536 12 0.536z"/><path d="M12 6.837c-2.835 0-5.163 2.328-5.163 5.163s2.328 5.163 5.163 5.163 5.163-2.328 5.163-5.163S14.835 6.837 12 6.837zm0 8.717c-1.962 0-3.554-1.592-3.554-3.554s1.592-3.554 3.554-3.554 3.554 1.592 3.554 3.554-1.592 3.554-3.554-3.554z"/><ellipse cx="17.84" cy="6.159" rx="1.21" ry="1.21"/></svg></a>
+                 </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© <span id="currentYear"></span> TMRT, K.J. Somaiya School of Engineering. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

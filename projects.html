@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects | TMRT</title>
+    <style>
+        /* ... (Copy ALL CSS from index.html <style> block here) ... */
+        :root {
+            --primary: #023e8a;
+            --secondary: #0077b6;
+            --accent: #00b4d8;
+            --light: #caf0f8;
+            --dark: #03045e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            padding-top: 80px; /* Adjust if header height changes */
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0; /* Ensure header is at the top */
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after, nav a.active:after {
+            width: 100%;
+        }
+        nav a.active {
+            color: var(--accent);
+        }
+        
+        .login-button {
+            margin-left: 1rem;
+        }
+        
+        .btn-login {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-login:hover {
+            background-color: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .page-hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 1rem 40px; /* Reduced padding */
+            text-align: center;
+            margin-bottom: 2rem; /* Add some space below hero */
+        }
+        .page-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        .page-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .tmrt-projects {
+            padding: 2rem 20px 80px; /* Adjusted padding */
+            position: relative;
+            background: var(--light); /* Changed background for project page section */
+        }
+         .tmrt-projects .section-title {
+            color: var(--primary); /* Title color for this section */
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Each project takes full width for detailed view */
+            gap: 40px;
+            margin-top: 40px;
+            max-width: 900px; /* Max width for content */
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        .project-card {
+            background: white; /* Changed background for project cards on this page */
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--dark); /* Text color for cards */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 119, 182, 0.1);
+        }
+        .project-card:target { /* Style for when a project is targeted by URL fragment */
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 15px 35px rgba(0, 119, 182, 0.15);
+        }
+
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary) !important; /* Title color for project card */
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #555 !important; /* Description color */
+            opacity: 1;
+        }
+        
+        .pain-point, .solution, .functioning {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            color: #444 !important;
+        }
+         .pain-point-title, .solution-title, .functioning-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--secondary) !important;
+            opacity: 1;
+        }
+
+        .pain-point {
+            background: rgba(244, 67, 54, 0.05);
+            border-left: 4px solid #f44336;
+        }
+
+        .solution {
+            background: rgba(76, 175, 80, 0.05);
+            border-left: 4px solid #4caf50;
+        }
+
+        .functioning {
+            background: rgba(33, 150, 243, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .function-list {
+            list-style: disc;
+            padding-left: 20px;
+            color: #555;
+        }
+        .function-list li::marker {
+            color: var(--accent);
+        }
+
+        .tech-highlight {
+            background: rgba(0, 188, 212, 0.1);
+            color: var(--accent);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        
+        .project-image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .project-image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            margin-top: 3rem; /* Add margin if content is short */
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: -8px;
+            left: 0;
+        }
+        
+        .footer-col p, .footer-col address {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-style: normal;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .social-links-footer {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-links-footer a {
+            color: white;
+            font-size: 1.5rem; 
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links-footer a:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 1.5rem 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 992px) {
+            .login-button { margin-left: 0.5rem; }
+            .btn-login { padding: 0.5rem 1rem; font-size: 0.9rem; }
+        }
+        
+        @media (max-width: 768px) {
+            header { padding: 0.5rem; }
+            nav ul { gap: 1rem; flex-direction: column; text-align: center;}
+            .header-content {flex-direction: column;}
+            .nav-link {padding: 0.5rem;}
+            .page-hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 576px) {
+            .logo h1 { font-size: 1.2rem; }
+            nav a { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="#023e8a" stroke="#00b4d8" stroke-width="2" />
+                    <path d="M30,50 Q50,20 70,50 T90,50" stroke="#00b4d8" stroke-width="4" fill="none" />
+                    <path d="M25,60 Q50,30 75,60" stroke="#00b4d8" stroke-width="4" fill="none" />
+                    <path d="M20,70 Q50,40 80,70" stroke="#00b4d8" stroke-width="4" fill="none" />
+                </svg>
+                <h1>The Marine Robotics Team</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html" class="active">Projects</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+            <div class="login-button">
+                <a href="login_placeholder.html" class="btn-login">Log In</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <h1>Our Innovative Projects</h1>
+        <p>Discover the cutting-edge marine robotics projects developed by TMRT to address real-world challenges and advance underwater technology.</p>
+    </section>
+
+    <!-- Main Projects Section -->
+    <section class="tmrt-projects" id="detailed-projects">
+        <div class="projects-container">
+            <div class="projects-grid">
+                <!-- Nisarg Project -->
+                <div class="project-card" id="nisarg">
+                    <div class="project-header">
+                        <div class="project-icon">🌊</div>
+                        <h3 class="project-title">Nisarg</h3>
+                    </div>
+                     <div class="project-image-container">
+                        <img src="https://via.placeholder.com/600x400.png?text=Nisarg+Project+Image" alt="Nisarg Project">
+                    </div>
+                    <p class="project-description">
+                        An autonomous water surface cleaning robot designed to tackle water pollution in urban and industrial areas.
+                    </p>
+                    <div class="pain-point">
+                        <div class="pain-point-title">Problem We're Solving</div>
+                        <p>Water pollution in densely populated areas where lakes, rivers, and coastal areas become dumping grounds for floating waste. Traditional cleanup methods are labor-intensive, expensive, and can't keep up with pollution rates.</p>
+                    </div>
+                    <div class="solution">
+                        <div class="solution-title">Our Solution</div>
+                        <p>Nisarg provides an efficient and scalable automated solution that continuously patrols and collects waste, ensuring water remains clean without constant human intervention while restoring water quality for aquatic life.</p>
+                    </div>
+                    <div class="functioning">
+                        <div class="functioning-title">How It Works</div>
+                        <ul class="function-list">
+                            <li>Autonomous robot that floats on water surface.</li>
+                            <li>Equipped with <span class="tech-highlight">sensors</span> to identify floating waste like plastic and organic debris.</li>
+                            <li>Navigates across water using collection mechanisms to gather debris efficiently over large areas.</li>
+                            <li>Utilizes <span class="tech-highlight">solar power</span> for sustainable operation.</li>
+                            <li>Features remote monitoring and control capabilities.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Jal Nirikshak Project -->
+                <div class="project-card" id="jal-nirikshak">
+                    <div class="project-header">
+                        <div class="project-icon">🚁</div>
+                        <h3 class="project-title">Jal Nirikshak</h3>
+                    </div>
+                    <div class="project-image-container">
+                        <img src="https://via.placeholder.com/600x400.png?text=Jal+Nirikshak+Project+Image" alt="Jal Nirikshak Project">
+                    </div>
+                    <p class="project-description">
+                        A groundwater detection drone system that helps farmers locate optimal well drilling sites using advanced electromagnetic scanning technology.
+                    </p>
+                    <div class="pain-point">
+                        <div class="pain-point-title">Problem We're Solving</div>
+                        <p>In rural and agricultural areas, farmers struggle to find exact groundwater locations, often relying on guesswork and outdated methods. This leads to wasted resources and inefficient use of scarce groundwater reserves.</p>
+                    </div>
+                    <div class="solution">
+                        <div class="solution-title">Our Solution</div>
+                        <p>Jal Nirikshak provides precise groundwater detection using electromagnetic waves, saving farmers time and money while promoting sustainable water management and effective resource utilization.</p>
+                    </div>
+                    <div class="functioning">
+                        <div class="functioning-title">How It Works</div>
+                        <ul class="function-list">
+                            <li>Drone flies over fields scanning ground with <span class="tech-highlight">electromagnetic waves</span>.</li>
+                            <li>Collects and analyzes data to map areas where water is most likely available.</li>
+                            <li>Shares information with farmers to guide optimal well drilling locations via a <span class="tech-highlight">mobile application</span>.</li>
+                            <li>Integrates <span class="tech-highlight">GPS data</span> for precise mapping.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                 <!-- Shuddhi Project -->
+                <div class="project-card" id="shuddhi">
+                    <div class="project-header">
+                        <div class="project-icon">🔧</div>
+                        <h3 class="project-title">Shuddhi</h3>
+                    </div>
+                     <div class="project-image-container">
+                        <img src="https://via.placeholder.com/600x400.png?text=Shuddhi+Project+Image" alt="Shuddhi Project">
+                    </div>
+                    <p class="project-description">
+                        An automated desilting robot that removes accumulated sediment from water bodies to maintain proper depth and flow.
+                    </p>
+                    <div class="pain-point">
+                        <div class="pain-point-title">Problem We're Solving</div>
+                        <p>Silt and sediment accumulation in lakes, rivers, and reservoirs reduces depth and obstructs water flow, leading to flood risks, habitat loss, and reduced water storage capacity. Traditional desilting is costly and labor-intensive.</p>
+                    </div>
+                    <div class="solution">
+                        <div class="solution-title">Our Solution</div>
+                        <p>Shuddhi automates the desilting process, making it efficient and less labor-intensive. It maintains water body depth and flow, reduces flood risks, and supports healthy aquatic ecosystems for community use.</p>
+                    </div>
+                    <div class="functioning">
+                        <div class="functioning-title">How It Works</div>
+                        <ul class="function-list">
+                            <li>Modified version of Proton robot, upgraded for <span class="tech-highlight">desilting operations</span>.</li>
+                            <li>Operates underwater using <span class="tech-highlight">dredging tools</span> and <span class="tech-highlight">suction systems</span>.</li>
+                            <li>Lifts silt from bottom and transports to designated areas, restoring water flow and quality.</li>
+                            <li>Equipped with <span class="tech-highlight">depth sensors</span> for precise operation.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Kalvari Project -->
+                <div class="project-card" id="kalvari">
+                    <div class="project-header">
+                        <div class="project-icon">🤖</div>
+                        <h3 class="project-title">Kalvari</h3>
+                    </div>
+                    <div class="project-image-container">
+                        <img src="https://via.placeholder.com/600x400.png?text=Kalvari+AUV+Image" alt="Kalvari AUV Project">
+                    </div>
+                    <p class="project-description">
+                        An advanced Autonomous Underwater Vehicle (AUV) designed for complex underwater exploration, inspection, and object retrieval missions.
+                    </p>
+                    <div class="pain-point">
+                        <div class="pain-point-title">Problem We're Solving</div>
+                        <p>Underwater exploration and tasks like structure inspection, object retrieval, and environmental surveys are complex, dangerous, and costly. Human divers face safety risks, especially in deep or hazardous environments.</p>
+                    </div>
+                    <div class="solution">
+                        <div class="solution-title">Our Solution</div>
+                        <p>Kalvari is an advanced AUV that performs underwater missions independently, showcasing TMRT's international-level technical expertise. It provides safe, efficient, and cost-effective underwater exploration while eliminating human risk.</p>
+                    </div>
+                    <div class="functioning">
+                        <div class="functioning-title">How It Works</div>
+                        <ul class="function-list">
+                            <li>Equipped with <span class="tech-highlight">HD cameras</span>, <span class="tech-highlight">sonar systems</span>, and <span class="tech-highlight">robotic arms</span>.</li>
+                            <li>Uses sensors and algorithms for autonomous underwater navigation and object detection.</li>
+                            <li>Performs missions like equipment retrieval, pipeline inspection, and environmental data collection.</li>
+                            <li>Features <span class="tech-highlight">modular design</span> for mission-specific configurations.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>About TMRT</h3>
+                <p>The Marine Robotics Team (TMRT) at K.J. Somaiya School of Engineering is dedicated to innovating in the field of autonomous underwater vehicles (AUVs) for exploration, research, and solving real-world marine challenges.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="team.html">Our Team</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="contact.html#join-us">Join Our Team</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Us</h3>
+                <address>
+                    K.J. Somaiya School of Engineering<br>
+                    Vidyanagar, Vidyavihar East,<br>
+                    Mumbai, Maharashtra 400077<br>
+                    Email: <a href="mailto:tmrt@somaiya.edu" style="color: var(--accent);">tmrt@somaiya.edu</a>
+                </address>
+                 <div class="social-links-footer">
+                    <a href="https://www.facebook.com/TMRTKJSCE/" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M22.676 0H1.324C.593 0 0 .593 0 1.324v21.352C0 23.407.593 24 1.324 24h11.494v-9.294H9.692v-3.622h3.126V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.324V1.324C24 .593 23.407 0 22.676 0z"/></svg></a>
+                    <a href="https://x.com/thetmrt" target="_blank" aria-label="Twitter (X)"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25h6.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="https://www.instagram.com/tmrt_kjsce/" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.264.058 2.148.277 2.917.578.78.308 1.454.755 2.128 1.43s.973 1.348 1.43 2.128c.301.77.52 1.653.578 2.917.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.058 1.264-.277 2.148-.578 2.917-.308.78-.755 1.454-1.43 2.128s-1.348.973-2.128 1.43c-.77.301-1.653.52-2.917.578-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.264-.058-2.148-.277-2.917-.578-.78-.308-1.454-.755-2.128-1.43s-.973-1.348-1.43-2.128c-.301-.77-.52-1.653-.578-2.917-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.058-1.264.277-2.148.578-2.917.308-.78.755-1.454 1.43-2.128s1.348-.973 2.128-1.43c.77-.301 1.653-.52 2.917-.578L7.15 2.233C8.416 2.175 8.796 2.163 12 2.163m0-1.627C8.69 0.536 8.273 0.549 7.014 0.61c-1.32.062-2.43.308-3.43.717-1.017.418-1.91.978-2.77 1.84s-1.423 1.753-1.84 2.77c-.41 1-.656 2.11-.717 3.43C0.549 10.273 0.536 10.69 0.536 14s.013 3.727.074 4.986c.061 1.32.308 2.43.717 3.43.418 1.017.978 1.91 1.84 2.77s1.753 1.423 2.77 1.84c1 .41 2.11.656 3.43.717 1.259.061 1.675.074 4.935.074s3.677-.013 4.935-.074c1.32-.061 2.43-.308 3.43-.717 1.017-.418 1.91-.978 2.77-1.84s1.423 1.753 1.84-2.77c.41-1 .656-2.11.717-3.43.061-1.259.074-1.675.074-4.935s-.013-3.677-.074-4.935c-.061-1.32-.308-2.43-.717-3.43-.418-1.017-.978-1.91-1.84-2.77s-1.753-1.423-2.77-1.84c-1-.41-2.11-.656-3.43-.717C15.727 0.549 15.31 0.536 12 0.536z"/><path d="M12 6.837c-2.835 0-5.163 2.328-5.163 5.163s2.328 5.163 5.163 5.163 5.163-2.328 5.163-5.163S14.835 6.837 12 6.837zm0 8.717c-1.962 0-3.554-1.592-3.554-3.554s1.592-3.554 3.554-3.554 3.554 1.592 3.554 3.554-1.592 3.554-3.554-3.554z"/><ellipse cx="17.84" cy="6.159" rx="1.21" ry="1.21"/></svg></a>
+                 </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="currentYear"></span> TMRT, K.J. Somaiya School of Engineering. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById("currentYear").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
