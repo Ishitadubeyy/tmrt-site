@@ -1,0 +1,1341 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> TMRT | The Marine Robotics Team</title>
+    <style>
+        :root {
+            --primary: #023e8a;
+            --secondary: #0077b6;
+            --accent: #00b4d8;
+            --light: #caf0f8;
+            --dark: #03045e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover:after {
+            width: 100%;
+        }
+        
+        .login-button {
+            margin-left: 1rem;
+        }
+        
+        .btn-login {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .btn-login:hover {
+            background-color: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(3, 4, 94, 0.7), rgba(0, 119, 182, 0.7)), url('/api/placeholder/1200/800') center/cover no-repeat;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(3, 4, 94, 0.4) 0%, rgba(3, 4, 94, 0.8) 100%);
+            z-index: 1;
+        }
+
+        .hero-waves {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            z-index: 2;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background-color: var(--accent);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+            border: 2px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 180, 216, 0.5);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            box-shadow: none;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--accent);
+            color: var(--dark);
+            box-shadow: 0 8px 25px rgba(0, 180, 216, 0.5);
+        }
+        .cta {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 6rem 1rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.1;
+
+}
+        
+        .features {
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 35px rgba(0, 119, 182, 0.2);
+        }
+        
+        .feature-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .feature-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .feature-card:hover .feature-img img {
+            transform: scale(1.1);
+        }
+        
+        .feature-content {
+            padding: 1.5rem;
+        }
+        
+        .feature-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 0.8rem;
+        }
+        
+        .feature-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+        }
+        
+        .feature-content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .projects {
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+            color: white;
+            padding: 5rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .projects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300b4d8' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .projects .section-title {
+            color: white;
+        }
+        
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .project-showcase {
+            position: relative;
+            height: 500px;
+            margin: 3rem 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .project-showcase:hover {
+            transform: translateY(-10px);
+        }
+        
+        .project-info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 45%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(3, 4, 94, 0.95) 70%, transparent 100%);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-radius: 0 30px 30px 0;
+            backdrop-filter: blur(5px);
+        }
+        
+        .project-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-info p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tech-tag {
+            background-color: var(--accent);
+            color: var(--dark);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(0, 180, 216, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 180, 216, 0.5);
+        }
+        
+        .stats {
+            padding: 5rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, white, #f8f9fa);
+            padding: 2.5rem 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--accent);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 119, 182, 0.15);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 0.8rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        .team {
+            background-color: var(--light);
+            padding: 5rem 1rem;
+        }
+        
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .team-photo {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 1.5rem;
+        }
+        
+        .team-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .team-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .cta {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 5rem 1rem;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            bottom: -8px;
+            left: 0;
+        }
+        
+        .footer-col p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-info i {
+            margin-right: 1rem;
+            color: var(--accent);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding: 1.5rem 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin-top: 2rem;
+        }
+        
+        /* Remove robot animation related styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .project-info {
+                width: 60%;
+            }
+            
+            .login-button {
+                margin-left: 0.5rem;
+            }
+            
+            .btn-login {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 0.5rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .project-info {
+                width: 100%;
+                background: rgba(143, 152, 160, 0.8);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+            
+            nav ul {
+                gap: 0.5rem;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animated Robot */
+        .robot-animation {
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+            width: 150px;
+            height: 150px;
+            z-index: 3;
+        }
+        
+        .robot-body {
+            position: relative;
+            width: 80px;
+            height: 100px;
+            background-color: var(--secondary);
+            border-radius: 10px;
+            margin: 0 auto;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .robot-head {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            border-radius: 15px;
+        }
+        
+        .robot-eye {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--light);
+            border-radius: 50%;
+            top: 15px;
+        }
+        
+        .robot-eye-left {
+            left: 10px;
+            animation: blink 2s infinite;
+        }
+        
+        .robot-eye-right {
+            right: 10px;
+            animation: blink 2s infinite 0.5s;
+        }
+        
+        .robot-antenna {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 20px;
+            background-color: var(--primary);
+        }
+        
+        .robot-antenna:before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .robot-arm {
+            position: absolute;
+            width: 15px;
+            height: 60px;
+            background-color: var(--primary);
+            border-radius: 5px;
+            top: 20px;
+        }
+        
+        .robot-arm-left {
+            left: -20px;
+            transform-origin: top center;
+            animation: wave 3s infinite;
+        }
+        
+        .robot-arm-right {
+            right: -20px;
+            transform-origin: top center;
+            animation: wave 3s infinite 1.5s;
+        }
+        
+        .robot-leg {
+            position: absolute;
+            width: 15px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 5px;
+            bottom: -30px;
+        }
+        
+        .robot-leg-left {
+            left: 15px;
+        }
+        
+        .robot-leg-right {
+            right: 15px;
+        }
+        
+        .bubbles {
+            position: absolute;
+            bottom: 120px;
+            right: 0;
+            width: 40px;
+        }
+        
+        .bubble {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: rise 3s infinite;
+        }
+        
+        .bubble:nth-child(2) {
+            width: 10px;
+            height: 10px;
+            left: 20px;
+            animation-delay: 0.5s;
+        }
+        
+        .bubble:nth-child(3) {
+            width: 7px;
+            height: 7px;
+            left: 10px;
+            animation-delay: 1s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes blink {
+            0%, 48%, 52%, 100% {
+                transform: scaleY(1);
+                background-color: var(--light);
+            }
+            50% {
+                transform: scaleY(0.1);
+                background-color: var(--secondary);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(-50%) scale(1.2);
+                opacity: 0.7;
+            }
+        }
+        
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(15deg);
+            }
+            75% {
+                transform: rotate(-15deg);
+            }
+        }
+        
+        @keyframes rise {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+        
+        /* Particle background for projects section */
+        .particles-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            display: block;
+            width: 3px;
+            height: 3px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            animation: move 3s linear infinite;
+        }
+        
+        @keyframes move {
+            0% {
+                transform: translateX(0) translateY(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(100px) translateY(-100px);
+                opacity: 0;
+            }
+        }
+           /* TMRT Projects Section Integration */
+        .tmrt-projects {
+            padding: 80px 20px;
+            position: relative;
+            background: linear-gradient(135deg, var(--dark), var(--primary));
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 188, 212, 0.3);
+            border-color: rgba(0, 188, 212, 0.5);
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .project-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--accent), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .project-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .pain-point {
+            background: rgba(244, 67, 54, 0.1);
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .solution {
+            background: rgba(76, 175, 80, 0.1);
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .functioning {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+
+        .function-list li::before {
+            color: var(--accent);
+        }
+
+        .tech-highlight {
+            background: rgba(0, 188, 212, 0.2);
+            color: var(--accent);
+        }
+
+        /* Particles animation */
+        .particles-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-card {
+                padding: 20px;
+            }
+            
+            .project-title {
+                font-size: 1.5rem;
+            }
+        }
+          .project-card {
+        background: rgba(0, 0, 0, 0.2); /* Darker background */
+        backdrop-filter: blur(12px);
+    }
+
+    .project-title {
+        color: var(--accent) !important;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .project-description {
+        color: #fff !important;
+        opacity: 0.9;
+    }
+
+    .pain-point-title,
+    .solution-title,
+    .functioning-title {
+        color: #fff !important;
+        opacity: 0.95;
+    }
+
+    .pain-point p,
+    .solution p {
+        color: rgba(255,255,255,0.85) !important;
+    }
+
+    .btn-more {
+        display: inline-block;
+        padding: 0.8rem 1.5rem;
+        background: linear-gradient(45deg, var(--accent), var(--secondary));
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+    }
+
+    .btn-more:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4);
+        border-color: rgba(255,255,255,0.2);
+    }
+
+    .function-list li {
+        color: rgba(255,255,255,0.85);
+    }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="#023e8a" stroke="#00b4d8" stroke-width="2" />
+                    <path d="M30,50 Q50,20 70,50 T90,50" stroke="#00b4d8" stroke-width="4" fill="none" />
+                    <path d="M25,60 Q50,30 75,60" stroke="#00b4d8" stroke-width="4" fill="none" />
+                    <path d="M20,70 Q50,40 80,70" stroke="#00b4d8" stroke-width="4" fill="none" />
+                </svg>
+                <h1>The Marine Robotics Team</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="register.html">Join Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="login-button">
+                <a href="login.php" class="btn-login">Log In</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>EXPLORING THE DEPTHS WITH ROBOTICS</h1>
+            <p>We design, build, and deploy autonomous underwater vehicles to tackle the challenges of marine exploration and conservation.</p>
+            <div>
+                <a href="projects.html" class="btn">Our Projects</a>
+                <a href="register.php" class="btn btn-outline">Join Our Team</a>
+            </div>
+        </div>
+        <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#caf0f8" fill-opacity="1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,245.3C1248,256,1344,224,1392,208L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">WHAT WE DO</h2>
+        <div class="feature-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-img">
+                    <img src="/api/placeholder/400/300" alt="Robot Design">
+                </div>
+                <div class="feature-content">
+                    <h3>Robot Design</h3>
+                    <p>Create innovative underwater robots with cutting-edge technologies that can withstand challenging marine environments.</p>
+                </div>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-img">
+                    <img src="/api/placeholder/400/300" alt="Software Development">
+                </div>
+                <div class="feature-content">
+                    <h3>Software Development</h3>
+                    <p>Develop advanced algorithms for navigation, image processing, and autonomous decision-making systems.</p>
+                </div>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-img">
+                    <img src="/api/placeholder/400/300" alt="Marine Research">
+                </div>
+                <div class="feature-content">
+                    <h3>Marine Research</h3>
+                    <p>Collaborate with marine scientists to gather data and insights about underwater ecosystems and ocean health.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+        <!-- Projects Section -->
+    <section class="tmrt-projects" id="projects">
+        <div class="projects-container">
+            <h2 class="section-title">OUR PROJECTS</h2>
+            
+            <div class="projects-grid">
+                <!-- Nisarg Project -->
+                <div class="project-card">
+                    <div class="particles-bg">
+                        <span class="particle" style="top: 20%; left: 10%; animation-delay: 0s;"></span>
+                        <span class="particle" style="top: 30%; left: 80%; animation-delay: 0.5s;"></span>
+                        <span class="particle" style="top: 60%; left: 15%; animation-delay: 1s;"></span>
+                        <span class="particle" style="top: 80%; left: 85%; animation-delay: 1.5s;"></span>
+                    </div>
+                    
+                    <div class="project-header">
+                        <div class="project-icon">🌊</div>
+                        <h3 class="project-title">Nisarg</h3>
+                    </div>
+                    
+                    <p class="project-description">
+                        An autonomous water surface cleaning robot designed to tackle water pollution in urban and industrial areas.
+                    </p>
+                    
+                    <div class="pain-point">
+                        <div class="pain-point-title">Problem We're Solving</div>
+                        <p>Water pollution in densely populated areas where lakes, rivers, and coastal areas become dumping grounds for floating waste. Traditional cleanup methods are labor-intensive, expensive, and can't keep up with pollution rates.</p>
+                    </div>
+                    
+                    <div class="solution">
+                        <div class="solution-title">Our Solution</div>
+                        <p>Nisarg provides an efficient and scalable automated solution that continuously patrols and collects waste, ensuring water remains clean without constant human intervention while restoring water quality for aquatic life.</p>
+                    </div>
+                    
+                    <div class="functioning">
+                        <div class="functioning-title">How It Works</div>
+                        <ul class="function-list">
+                            <li>Autonomous robot that floats on water surface</li>
+                            <li>Equipped with <span class="tech-highlight">sensors</span> to identify floating waste like plastic and organic debris</li>
+                            <li>Navigates across water using collection mechanisms to gather debris efficiently over large areas</li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn-more">More Info →</a>
+
+
+                </div>
+                <!-- Jal Nirikshak Project -->
+                <div class="project-card">
+                    <div class="particles-bg">
+                        <span class="particle" style="top: 25%; left: 20%; animation-delay: 0.3s;"></span>
+                        <span class="particle" style="top: 45%; left: 75%; animation-delay: 0.8s;"></span>
+                        <span class="particle" style="top: 70%; left: 25%; animation-delay: 1.3s;"></span>
+                        <span class="particle" style="top: 15%; left: 90%; animation-delay: 1.8s;"></span>
+                    </div>
+                    
+                    <div class="project-header">
+                        <div class="project-icon">🚁</div>
+                        <h3 class="project-title">Jal Nirikshak</h3>
+                    </div>
+                    
+                    <p class="project-description">
+                        A groundwater detection drone system that helps farmers locate optimal well drilling sites using advanced electromagnetic scanning technology.
+                    </p>
+                    
+                    <div class="pain-point">
+                        <div class="pain-point-title">Problem We're Solving</div>
+                        <p>In rural and agricultural areas, farmers struggle to find exact groundwater locations, often relying on guesswork and outdated methods. This leads to wasted resources and inefficient use of scarce groundwater reserves.</p>
+                    </div>
+                    
+                    <div class="solution">
+                        <div class="solution-title">Our Solution</div>
+                        <p>Jal Nirikshak provides precise groundwater detection using electromagnetic waves, saving farmers time and money while promoting sustainable water management and effective resource utilization.</p>
+                    </div>
+                    
+                    <div class="functioning">
+                        <div class="functioning-title">How It Works</div>
+                        <ul class="function-list">
+                            <li>Drone flies over fields scanning ground with <span class="tech-highlight">electromagnetic waves</span></li>
+                            <li>Collects and analyzes data to map areas where water is most likely available</li>
+                            <li>Shares information with farmers to guide optimal well drilling locations</li>
+                        </ul>
+                    </div>
+                                        <a href="#" class="btn-more">More Info →</a>
+
+                </div>
+
+                <!-- Shuddhi Project -->
+                <div class="project-card">
+                    <div class="particles-bg">
+                        <span class="particle" style="top: 35%; left: 15%; animation-delay: 0.2s;"></span>
+                        <span class="particle" style="top: 55%; left: 80%; animation-delay: 0.7s;"></span>
+                        <span class="particle" style="top: 75%; left: 30%; animation-delay: 1.2s;"></span>
+                        <span class="particle" style="top: 10%; left: 85%; animation-delay: 1.7s;"></span>
+                    </div>
+                    
+                    <div class="project-header">
+                        <div class="project-icon">🔧</div>
+                        <h3 class="project-title">Shuddhi</h3>
+                    </div>
+                    
+                    <p class="project-description">
+                        An automated desilting robot that removes accumulated sediment from water bodies to maintain proper depth and flow.
+                    </p>
+                    
+                    <div class="pain-point">
+                        <div class="pain-point-title">Problem We're Solving</div>
+                        <p>Silt and sediment accumulation in lakes, rivers, and reservoirs reduces depth and obstructs water flow, leading to flood risks, habitat loss, and reduced water storage capacity. Traditional desilting is costly and labor-intensive.</p>
+                    </div>
+                    
+                    <div class="solution">
+                        <div class="solution-title">Our Solution</div>
+                        <p>Shuddhi automates the desilting process, making it efficient and less labor-intensive. It maintains water body depth and flow, reduces flood risks, and supports healthy aquatic ecosystems for community use.</p>
+                    </div>
+                    
+                    <div class="functioning">
+                        <div class="functioning-title">How It Works</div>
+                        <ul class="function-list">
+                            <li>Modified version of Proton robot, upgraded for <span class="tech-highlight">desilting operations</span></li>
+                            <li>Operates underwater using dredging tools and suction systems</li>
+                            <li>Lifts silt from bottom and transports to designated areas, restoring water flow and quality</li>
+                        </ul>
+                    </div>
+                                        <a href="#" class="btn-more">More Info →</a>
+
+                </div>
+
+                <!-- Kalvari Project -->
+                <div class="project-card">
+                    <div class="particles-bg">
+                        <span class="particle" style="top: 40%; left: 12%; animation-delay: 0.4s;"></span>
+                        <span class="particle" style="top: 20%; left: 88%; animation-delay: 0.9s;"></span>
+                        <span class="particle" style="top: 65%; left: 18%; animation-delay: 1.4s;"></span>
+                        <span class="particle" style="top: 85%; left: 82%; animation-delay: 1.9s;"></span>
+                    </div>
+                    
+                    <div class="project-header">
+                        <div class="project-icon">🤖</div>
+                        <h3 class="project-title">Kalvari</h3>
+                    </div>
+                    
+                    <p class="project-description">
+                        An advanced Autonomous Underwater Vehicle (AUV) designed for complex underwater exploration, inspection, and object retrieval missions.
+                    </p>
+                    
+                    <div class="pain-point">
+                        <div class="pain-point-title">Problem We're Solving</div>
+                        <p>Underwater exploration and tasks like structure inspection, object retrieval, and environmental surveys are complex, dangerous, and costly. Human divers face safety risks, especially in deep or hazardous environments.</p>
+                    </div>
+                    
+                    <div class="solution">
+                        <div class="solution-title">Our Solution</div>
+                        <p>Kalvari is an advanced AUV that performs underwater missions independently, showcasing TMRT's international-level technical expertise. It provides safe, efficient, and cost-effective underwater exploration while eliminating human risk.</p>
+                    </div>
+                    
+                    <div class="functioning">
+                        <div class="functioning-title">How It Works</div>
+                        <ul class="function-list">
+                            <li>Equipped with <span class="tech-highlight">HD cameras</span>, <span class="tech-highlight">sonar systems</span>, and <span class="tech-highlight">robotic arms</span></li>
+                            <li>Uses sensors and algorithms for autonomous underwater navigation and object detection</li>
+                            <li>Performs missions like equipment retrieval, pipeline inspection, and environmental data collection</li>
+                        </ul>
+                    </div>
+                    
+                            <a href="#" class="btn-more">More Info →</a>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
